@@ -1,3 +1,0 @@
-/home/dane/projects/task-scheduler/build/CMakeFiles/scheduler.dir
-/home/dane/projects/task-scheduler/build/CMakeFiles/edit_cache.dir
-/home/dane/projects/task-scheduler/build/CMakeFiles/rebuild_cache.dir
