@@ -19,9 +19,9 @@ class Scheduler {
   std::vector<Task> task_list;
 public:
 
-  void addTask(std::string string, const int& prio);
-  void displayTask();
-  void removeTask(const std::string &task_name);
+  void addTask(std::string string, const int& prio);   //yes i know, string& instead of string because i don't wanna create a copy
+  void displayTask() const;
+  void removeTask(std::string task_name);
   void sortTasksName();
   void sortTasksPrio();
 };

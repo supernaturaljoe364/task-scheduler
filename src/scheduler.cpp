@@ -1,4 +1,5 @@
 #include "scheduler.hpp"
+#include <utility>
 #include <algorithm>
 #include <iostream>
 #include <string>
@@ -7,26 +8,29 @@
 void Scheduler::addTask(std::string task_name, const int& prio) {
   //std::string instead of const std::string& to support move semantics
 
-  std::string task_name_revised;    //automatically initialized
 
-  for(auto ch : task_name){
-   task_name_revised += std::tolower(static_cast<unsigned char>(ch));  //casting to unsigned char (KEEP IN MIND)
+  for(auto& ch : task_name){
+    ch = std::tolower(static_cast<unsigned char>(ch));
   }
 
-  Task task_obj(task_name_revised, prio);
-  task_list.emplace_back(task_obj); //emplace_back directly pushes into vector 
-                                    //without creating copy like push_back
+
+  task_list.emplace_back(std::move(task_name), prio); //emplace_back directly pushes into vector 
 
   std::cout << "Task added.\n";
 }
 
-void Scheduler::displayTask() {
+void Scheduler::displayTask() const{
   for (const auto& task : task_list) {
     std::cout << "Name: " << task.task_name << " " << "Prio: " <<  task.priority << '\n';
   }
 }
 
-void Scheduler::removeTask(const std::string &task_name) {
+void Scheduler::removeTask(std::string task_name) {
+
+
+  for(auto& ch: task_name){
+    ch = std::tolower(static_cast<unsigned char> (ch));
+  }
 
   auto it = std::find_if(task_list.begin(), task_list.end(),
       [&](const Task& task){
