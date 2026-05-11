@@ -24,4 +24,6 @@ public:
   void removeTask(std::string task_name);
   void sortTasksName();
   void sortTasksPrio();
+  void displayTaskFile() const;
+  void saveTasksFile();
 };

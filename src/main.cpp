@@ -3,7 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-
+#include <cstdint>
 int main() {
   Scheduler scheduler;
 
@@ -25,12 +25,12 @@ int main() {
       std::cout << "Enter a task: ";
       std::getline(std::cin, task);
 
-      int priority;
+      uint32_t priority;
       std::cout << "Enter priority of task: ";
       std::cin >> priority;
 
       //to remove the '\n' in input buffer if the user decides to do an operation using std::getline
-
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       scheduler.addTask(task, priority);
     }
   }
@@ -38,6 +38,8 @@ int main() {
     if(command == "show"){
       if(second_command == "tasks"){
           scheduler.displayTask();
+
+          scheduler.displayTaskFile();
       }
     }
 
@@ -67,6 +69,14 @@ int main() {
 
       }
     }
+
+    if(command == "save"){
+      if(second_command == "tasks"){
+        scheduler.saveTasksFile();
+
+      }
+    }
+
   }
       return 0;
 }
