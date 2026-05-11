@@ -4,19 +4,18 @@
 #include <string>
 #include <cctype>
 
-void Scheduler::addTask(const std::string &task_name, const int &prio) {
-  Task task_obj;
+void Scheduler::addTask(std::string task_name, const int& prio) {
+  //std::string instead of const std::string& to support move semantics
 
   std::string task_name_revised;    //automatically initialized
 
   for(auto ch : task_name){
-   task_name_revised += std::tolower(ch);
+   task_name_revised += std::tolower(static_cast<unsigned char>(ch));  //casting to unsigned char (KEEP IN MIND)
   }
 
-  task_obj.task_name = task_name_revised;
-  task_obj.priority = prio;
-
-  task_list.push_back(task_obj);
+  Task task_obj(task_name_revised, prio);
+  task_list.emplace_back(task_obj); //emplace_back directly pushes into vector 
+                                    //without creating copy like push_back
 
   std::cout << "Task added.\n";
 }

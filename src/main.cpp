@@ -30,7 +30,6 @@ int main() {
       std::cin >> priority;
 
       //to remove the '\n' in input buffer if the user decides to do an operation using std::getline
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
 
       scheduler.addTask(task, priority);
     }
