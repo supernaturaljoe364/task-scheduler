@@ -77,6 +77,9 @@ int main() {
       }
     }
 
+    if(command == "reset"){
+      scheduler.resetFile();
+    }
   }
       return 0;
 }

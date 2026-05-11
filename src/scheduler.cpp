@@ -96,8 +96,12 @@ void Scheduler::saveTasksFile(){
 
     std::cout << "Tasks Saved successfully." << '\n'; 
   }
-
-
 }
 
+void Scheduler::resetFile(){ 
+  //remove all contents inside the file.
+  //overwrite?
+  std::ofstream reset_file("task_file.txt");
+  std::cout << "File contents deleted." << '\n';
+}
 

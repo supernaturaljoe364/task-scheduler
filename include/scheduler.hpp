@@ -26,4 +26,5 @@ public:
   void sortTasksPrio();
   void displayTaskFile() const;
   void saveTasksFile();
+  void resetFile();
 };
