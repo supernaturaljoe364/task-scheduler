@@ -3,6 +3,9 @@
 #include <vector>
 #include <utility>
 
+
+
+
 class Task {
   friend class Scheduler; //encapsulation
   std::string task_name;
@@ -14,17 +17,18 @@ class Task {
       priority(prio) {};
 };
 
+
 class Scheduler {
 
   std::vector<Task> task_list;
 public:
 
-  void addTask(std::string string, const int& prio);   //yes i know, string& instead of string because i don't wanna create a copy
+  void addTask(std::string string, const int& prio);   //yes i know, string instead of string because i don't wanna create a copy
   void displayTask() const;
   void removeTask(std::string task_name);
   void sortTasksName();
   void sortTasksPrio();
-  void displayTaskFile() const;
+  void loadTaskFile();
   void saveTasksFile();
-  void resetFile();
+  void clearFile();
 };

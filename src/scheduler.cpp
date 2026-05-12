@@ -5,6 +5,10 @@
 #include <string>
 #include <cctype>
 #include <fstream>
+#include <sstream>
+
+
+
 void Scheduler::addTask(std::string task_name, const int& prio) {
   //std::string instead of const std::string& to support move semantics
   
@@ -12,7 +16,6 @@ void Scheduler::addTask(std::string task_name, const int& prio) {
     ch = std::tolower(static_cast<unsigned char>(ch));
   }
 
-  const std::string& task_name_copy = task_name;     //string_view forsomereason doesn't read the 1st character
   task_list.emplace_back(std::move(task_name), prio); //emplace_back directly pushes into vector 
   std::cout << "Task added.\n";
 
@@ -24,28 +27,74 @@ void Scheduler::displayTask() const{
   }
 }
 
-void Scheduler::displayTaskFile() const{
+void Scheduler::loadTaskFile(){
 
   std::ifstream file_text("task_file.txt");
-  std::string lines;
+
+  std::string line;
 
   if(!file_text.is_open()){
     std::cout << "Failed to open file."<< '\n';
   }
 
   else{
-    //check to see if file is empty using fs::filesize("filename", errorcode);
     if(file_text.peek() == std::ifstream::traits_type::eof()){
       std::cout << "File is empty!" << '\n';
     }
     else{
-      //open the file and read from it.
-      while(std::getline(file_text, lines)){
-        std::cout << lines << '\n';
+      //read each line inside file, then 
+      while(std::getline(file_text, line)){
+        std::istringstream iss(line);
+        std::string task_name;
+        std::string priority_text;
+        int priority = 0;
+
+        std::getline(iss, task_name, '|');
+        std::getline(iss, priority_text);
+
+        priority = priority*10 + (std::stoi(priority_text));
+
+        task_list.emplace_back(std::move(task_name), priority);
       }
     }
   }
 }
+
+        
+/*manual parsing code my dumbass made (i didn't know the above thing was possible)
+        bool occ = false;
+        for(auto ch : line){
+          if(ch == '|'){
+            //delim has occurred,
+            occ = true;
+            //remove whitespace by locating lastnonws and removing the trailingws
+            auto lastNonSpace = task_name.find_last_not_of(" ");    
+            task_name = task_name.erase(lastNonSpace + 1);
+            continue;
+            
+          }
+          if(!occ){
+            ch = std::tolower(static_cast<unsigned char>(ch));
+            task_name+=ch;
+          }
+          if(occ){
+            //read each number, parse to int, add to it.
+            priority = priority*10 + (static_cast<int>(static_cast<unsigned char>(ch) - '0'));
+          }
+        }
+
+        //by the time the line is completed, we append it to task_list
+
+        task_list.emplace_back(std::move(task_name), priority);
+      }
+
+
+
+    }
+  }
+}
+*/
+
 
 void Scheduler::removeTask(std::string task_name) {
 
@@ -84,24 +133,27 @@ void Scheduler::sortTasksPrio(){
 }
 
 void Scheduler::saveTasksFile(){
-  std::ofstream file_write("task_file.txt", std::ios::app);
+
+  //not appending to file, we overwrite it with the contents inside vector
+  std::ofstream file_write("task_file.txt");
   if(!file_write.is_open()){
     std::cout << "File writing failed." << '\n';
   }
   else{
 
     for(auto& task : task_list){
-      file_write << task.task_name << " | " << task.priority << '\n';
+      file_write << task.task_name << "|" << task.priority << '\n';
     }
 
     std::cout << "Tasks Saved successfully." << '\n'; 
   }
 }
 
-void Scheduler::resetFile(){ 
+void Scheduler::clearFile(){ 
   //remove all contents inside the file.
   //overwrite?
-  std::ofstream reset_file("task_file.txt");
+  std::ofstream clear_file("task_file.txt");
   std::cout << "File contents deleted." << '\n';
 }
+
 

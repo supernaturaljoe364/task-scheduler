@@ -38,8 +38,6 @@ int main() {
     if(command == "show"){
       if(second_command == "tasks"){
           scheduler.displayTask();
-
-          scheduler.displayTaskFile();
       }
     }
 
@@ -77,8 +75,14 @@ int main() {
       }
     }
 
-    if(command == "reset"){
-      scheduler.resetFile();
+    if(command == "clear"){
+      scheduler.clearFile();
+    }
+    
+    if(command == "load"){
+      if(second_command == "tasks"){
+        scheduler.loadTaskFile();
+      }
     }
   }
       return 0;
