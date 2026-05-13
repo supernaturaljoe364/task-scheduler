@@ -19,6 +19,9 @@ void Scheduler::addTask(std::string task_name, const int& prio) {
   task_list.emplace_back(std::move(task_name), prio); //emplace_back directly pushes into vector 
   std::cout << "Task added.\n";
 
+  Scheduler::displayTask();
+
+
 }
 
 void Scheduler::displayTask() const{

@@ -7,13 +7,11 @@
 #include <unordered_map>
 int main() {
 
+    Scheduler scheduler;
   while(true){
     std::string input;
     std::getline(std::cin, input);
 
-    Scheduler scheduler;
-
-    std::istringstream iss(input);
 
     std::string task_name;
     int priority;
@@ -86,7 +84,7 @@ int main() {
 
     if(commands.find(input) != commands.end()){
       //command found!
-      
+      commands[input]();      //because commands[input] is callable, and we use std::function<void()>, this works
     }
     else std::cout << "Invalid Command.\n";
     
