@@ -46,6 +46,8 @@ int main() {
           std::cout << "Sort by (N)ame or (P)riority? :";
           std::cin >> option;
 
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
           if(option == 'N') return scheduler.sortTasksName();
           else if(option == 'P') return scheduler.sortTasksPrio();
         }
@@ -65,6 +67,9 @@ int main() {
 
       {
         "remove task", [&](){
+          std::cout << "Enter the task: ";
+          std::getline(std::cin, task_name);
+
           scheduler.removeTask(task_name);
         }
       },

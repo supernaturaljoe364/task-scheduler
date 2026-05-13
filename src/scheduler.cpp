@@ -58,6 +58,8 @@ void Scheduler::loadTaskFile(){
         priority = priority*10 + (std::stoi(priority_text));
 
         task_list.emplace_back(std::move(task_name), priority);
+
+        std::cout << "Tasks loaded from file." << '\n';
       }
     }
   }
