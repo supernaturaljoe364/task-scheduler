@@ -31,6 +31,10 @@ void Scheduler::displayTask() const{
 }
 
 void Scheduler::loadTaskFile(){
+  //clear task_list
+  task_list.clear();
+  //replce the current task_list to the ones inside the file.
+  
 
   std::ifstream file_text("task_file.txt");
 
@@ -59,8 +63,8 @@ void Scheduler::loadTaskFile(){
 
         task_list.emplace_back(std::move(task_name), priority);
 
-        std::cout << "Tasks loaded from file." << '\n';
       }
+      std::cout << "Tasks loaded from file." << '\n';
     }
   }
 }
@@ -103,6 +107,9 @@ void Scheduler::loadTaskFile(){
 
 void Scheduler::removeTask(std::string task_name) {
 
+  if (task_list.empty()){
+    std::cout << "List is empty!" << '\n';
+  }
 
   for(auto& ch: task_name){
     ch = std::tolower(static_cast<unsigned char> (ch));
