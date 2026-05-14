@@ -7,42 +7,37 @@
 #include <unordered_map>
 int main() {
 
+    
+    std::string input;
     Scheduler scheduler;
 
     std::string task_name;
-    int priority;
+    std::string priority;
     char option;
     
-    std::unordered_map<std::string, std::function<void()>> commands = {
+    std::unordered_map<std::string, std::function<void(std::istringstream&)>> commands = {
 
 
       { 
-        "add task" , [&](){
-          std::cout << "Enter a task: ";
-          std::getline(std::cin, task_name);
+        "add task" , [&](std::istringstream& iss){
+          
+          iss >> task_name >> priority;
 
-          std::cout << "Enter priority of task: ";
-          std::cin >> priority;
-
-          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-          scheduler.addTask(task_name, priority);
+          scheduler.addTask(task_name, std::stoi(priority));
         }
       },
 
       {
-        "show tasks" , [&](){
+        "show tasks" , [&](std::istringstream& iss){
           scheduler.displayTask();
         }
       },
 
       {
-        "sort tasks" , [&](){
+        "sort tasks" , [&](std::istringstream& iss){
 
-          std::cout << "Sort by (N)ame or (P)riority? :";
-          std::cin >> option;
-
-          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+          char option;
+          iss >> option;
 
           if(option == 'N') return scheduler.sortTasksName();
           else if(option == 'P') return scheduler.sortTasksPrio();
@@ -50,50 +45,59 @@ int main() {
       },
 
       {
-        "load tasks" , [&](){
+        "load tasks" , [&](std::istringstream& iss){
           scheduler.loadTaskFile();
         }
       },
 
       {
-        "save tasks" , [&](){
+        "save tasks" , [&](std::istringstream& iss){
           scheduler.saveTasksFile();
         }
       },
 
       {
-        "remove task", [&](){
-          std::cout << "Enter the task: ";
-          std::getline(std::cin, task_name);
+        "remove task", [&](std::istringstream& iss){
 
+          iss >> task_name;
           scheduler.removeTask(task_name);
         }
       },
 
       {
-        "clear", [&](){
+        "clear", [&](std::istringstream& iss){
           scheduler.clearFile();
         }
       },
 
       {
-        "exit", [&](){
-         //i really don't know how to dea with this.
+        "exit", [&](std::istringstream& iss){
+         std::exit(0); 
         }
       }
     };
   while(true){
 
     std::string input;
+
+    std::string command;
+    std::string second_command;
+    std::string full_command;
+
     std::getline(std::cin, input);
+    std::istringstream iss(input);
+    iss >> command >> second_command;
 
-
-    if(commands.find(input) != commands.end()){
+    if(second_command == ""){
+      full_command = command;
+    }
+    else full_command = command + " " + second_command;
+  
+    if(commands.find(full_command) != commands.end()){
       //command found!
-      commands[input]();      //because commands[input] is callable, and we use std::function<void()>, this works
+      commands[full_command](iss);
     }
     else std::cout << "Invalid Command.\n";
   }
-      return 0;
 }
 

@@ -134,6 +134,9 @@ void Scheduler::sortTasksName(){
           //sort by name
           return a.task_name < b.task_name;
       });
+    std::cout << "Task sorted by name." << '\n';
+
+    Scheduler::displayTask(); 
 }
 
 void Scheduler::sortTasksPrio(){
@@ -142,6 +145,8 @@ void Scheduler::sortTasksPrio(){
           return a.priority < b.priority;
 
       });
+  std::cout << "Task sorted by priority." << '\n';
+  Scheduler::displayTask();
 }
 
 void Scheduler::saveTasksFile(){
