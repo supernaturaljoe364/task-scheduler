@@ -1,6 +1,5 @@
 #include "scheduler.hpp"
 #include <functional>
-#include <limits>
 #include <iostream>
 #include <sstream>
 #include <string>

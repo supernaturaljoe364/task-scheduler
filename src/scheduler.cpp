@@ -21,19 +21,16 @@ void Scheduler::addTask(std::string task_name, const int& prio) {
 
   Scheduler::displayTask();
 
-
 }
 
 void Scheduler::displayTask() const{
   for (const auto& task : task_list) {
     std::cout << "Name: " << task.task_name << " | " << "Prio: " <<  task.priority << '\n';
   }
+  std::cout << '\n';
 }
 
 void Scheduler::loadTaskFile(){
-  //clear task_list
-  task_list.clear();
-  //replce the current task_list to the ones inside the file.
   
 
   std::ifstream file_text("task_file.txt");
@@ -41,14 +38,17 @@ void Scheduler::loadTaskFile(){
   std::string line;
 
   if(!file_text.is_open()){
-    std::cout << "Failed to open file."<< '\n';
+    std::cout << "Failed to open file.\n"<< '\n';
   }
 
   else{
+
     if(file_text.peek() == std::ifstream::traits_type::eof()){
-      std::cout << "File is empty!" << '\n';
+      std::cout << "File is empty!\n" << '\n';
     }
     else{
+
+    task_list.clear();
       //read each line inside file, then 
       while(std::getline(file_text, line)){
         std::istringstream iss(line);
@@ -64,7 +64,7 @@ void Scheduler::loadTaskFile(){
         task_list.emplace_back(std::move(task_name), priority);
 
       }
-      std::cout << "Tasks loaded from file." << '\n';
+      std::cout << "Tasks loaded from file.\n" << '\n';
     }
   }
 }
@@ -122,9 +122,9 @@ void Scheduler::removeTask(std::string task_name) {
 
   if(it != task_list.end()){
      task_list.erase(it);
-     std::cout << "Task deleted." << '\n';
+     std::cout << "Task deleted.\n" << '\n';
   }  
-  else std::cout << "Task Not Found!" << '\n';
+  else std::cout << "Task Not Found.\n" << '\n';
 }
 
 void Scheduler::sortTasksName(){
@@ -136,7 +136,8 @@ void Scheduler::sortTasksName(){
       });
     std::cout << "Task sorted by name." << '\n';
 
-    Scheduler::displayTask(); 
+    Scheduler::displayTask();
+    std::cout << '\n';
 }
 
 void Scheduler::sortTasksPrio(){
@@ -162,7 +163,7 @@ void Scheduler::saveTasksFile(){
       file_write << task.task_name << "|" << task.priority << '\n';
     }
 
-    std::cout << "Tasks Saved successfully." << '\n'; 
+    std::cout << "Tasks Saved successfully.\n" << '\n'; 
   }
 }
 
@@ -170,7 +171,7 @@ void Scheduler::clearFile(){
   //remove all contents inside the file.
   //overwrite?
   std::ofstream clear_file("task_file.txt");
-  std::cout << "File contents deleted." << '\n';
+  std::cout << "File contents deleted.\n" << '\n';
 }
 
 
