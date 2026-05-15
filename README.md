@@ -1,6 +1,6 @@
 # Task Scheduler
 
-Task Scheduler is a CLI-tool that allows users to add, remove, view, sort, save and load tasks. This software makes use of STL containers & algorithms, designed for learning purposes and not for production-grade use. 
+Task Scheduler is a CLI-tool that allows users to add, remove, view, sort, save and load tasks. This software makes use of STL containers & algorithms, **designed for learning purposes and not for production-grade use.** 
 
 This project was built with CMake and Git. 
 
@@ -21,47 +21,43 @@ This project was built with CMake and Git.
 - Modern C++ \(C++17\)
 - CMake
 
-## Project Structure
-.
-├── include/
-│   └── scheduler.hpp
-├── src/
-│   ├── main.cpp
-│   └── scheduler.cpp
-├── build/
-├── CMakeLists.txt
-└── task_file.txt
-
-
 ## Installation
 
-If you wish to try out this software, follow these steps: \
+If you wish to try out this software, follow these steps: 
 
-- Clone repository \
+- Clone repository 
 
-`git clone https://github.com/supernaturaljoe364/task-scheduler.git` \
+`git clone https://github.com/supernaturaljoe364/task-scheduler.git` 
 
 `cd task-scheduler`
 
-- Build using CMake \ 
+- Build using CMake  
 
-`cmake _B build` \ 
+`cmake -B build`  
+
 `cmake --build build`
 
-- Run \ 
+- Run  
 
 `./build/scheduler`
 
 ## Commands
 
-`add task <task_name> <priority>` -> add task \ 
-`remove task <task_name>` -> remove task with task_name \ 
-`show tasks` -> show all tasks inside the task vector \ 
-`sort tasks N` -> sort tasks by name \ 
-`sort tasks P` -> sort tasks by priority \ 
-`save tasks` -> save tasks to file \ 
+`add task <task_name> <priority>` -> add task  
+
+`remove task <task_name>` -> remove task with task_name  
+
+`show tasks` -> show all tasks inside the task vector  
+
+`sort tasks N` -> sort tasks by name  
+
+`sort tasks P` -> sort tasks by priority 
+
+`save tasks` -> save tasks to file  
+
 `load tasks` -> load tasks from file. \(This results in overwriting of data inside the file\)
-`exit` -> exit program \
+
+`exit` -> exit program 
 
 ## Concepts practice
 
