@@ -1,3 +1,0 @@
-gym|5
-pray|1
-study|4
